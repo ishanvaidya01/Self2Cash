@@ -1,6 +1,6 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/ishanvaidya01/Self2Cash/main/assets/banner.png" alt="Shelf2Cash Banner" width="100%" />
-  <h1>🚀 Shelf2Cash</h1>
+  <h1> Shelf2Cash</h1>
   <p><strong>A Physical-to-Financial Intelligence Platform for India's Small Retailers (Kiranas)</strong></p>
   <p><em>Built for the iQOO Hackathon 2026 — FinTech & Commerce Track</em></p>
 
@@ -13,7 +13,7 @@
 
 <br />
 
-## 📖 The Vision
+##  The Vision
 
 This is **not** an inventory management app. It is a **Financial Intelligence Engine**. 
 
@@ -23,33 +23,33 @@ Every feature in this platform is designed to answer one question: *How do we un
 
 ---
 
-## ✨ Core Features
+##  Core Features
 
-### 1. 📷 Camera Shelf Verification (Physical-to-Digital)
+### 1.  Camera Shelf Verification (Physical-to-Digital)
 Trusting manual data entry is flawed. Shelf2Cash uses the phone camera (simulating Edge CV inference) to count inventory on the shelf and immediately compares it to the digital ledger. 
 - Discrepancies aren't just shown as missing units; they are **framed as financial impact** (e.g., *"10 units missing = ₹1,450 trapped capital"*).
 
-### 2. 🕸 Kirana Mesh (Cluster Intelligence)
+### 2.  Kirana Mesh (Cluster Intelligence)
 Why buy from a distributor when the store 2km away is desperately trying to liquidate the exact item you are about to run out of?
 - Uses **Geospatial Queries (MongoDB 2dsphere)** to pair SURPLUS stores with SHORTAGE stores.
 - Real-time WebSocket matchmaking and dynamic demand signal detection.
 
-### 3. 🧮 What-If Simulator (ML Forecasting)
+### 3.  What-If Simulator (ML Forecasting)
 Retailers usually guess how much to buy. We let them simulate the future. 
 - Interactive sliders for purchase quantities, supplier delays, and upcoming festivals.
 - Calls our **Python ML Service (WMA / Exponential Smoothing)** to instantly recalculate 30-day cash flow projections.
 
-### 4. ⚡ Micro-Factoring (Inventory as Collateral)
+### 4.  Micro-Factoring (Inventory as Collateral)
 Instant capital advances tied to the Cash Conversion Clock. 
 - Since we know exactly how fast an SKU sells (velocity tier) and the forecast confidence, we treat the **inventory itself as collateral**. No credit checks needed.
 
-### 5. 📒 Digital Khata (WhatsApp Integration)
+### 5.  Digital Khata (WhatsApp Integration)
 A digital ledger for customer credit with single-click WhatsApp reminders.
 - Uses **WhatsApp Click-to-Chat (wa.me)** links to instantly pre-fill payment reminders, requiring absolutely zero API setup.
 
 ---
 
-## 🏗 Tech Stack
+##  Tech Stack
 
 | Component | Technology | Description |
 | :--- | :--- | :--- |
@@ -60,7 +60,7 @@ A digital ledger for customer credit with single-click WhatsApp reminders.
 
 ---
 
-## 🔌 API Integrations & Signals
+##  API Integrations & Signals
 
 Shelf2Cash is "network-aware" and listens to the real world to generate intelligent buy/sell signals:
 1. **[Data.gov.in (Agmarknet)](https://data.gov.in/)**: Polls live wholesale commodity prices (Onion, Potato, Tomato) to detect price crashes and generate "Wait to buy" signals.
@@ -71,7 +71,7 @@ Shelf2Cash is "network-aware" and listens to the real world to generate intellig
 
 ---
 
-## 🚀 Quick Start (Local Development)
+##  Quick Start (Local Development)
 
 ### 1. Prerequisites
 - **Node.js** (v18+)
