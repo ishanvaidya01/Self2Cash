@@ -1,0 +1,112 @@
+[
+  {
+    "id": "navratri_2026",
+    "name": "Navratri",
+    "region": "North India",
+    "startDate": "2026-10-02",
+    "endDate": "2026-10-11",
+    "impact": "HIGH",
+    "categories": ["Grains & Staples", "Dairy & Beverages", "Spices & Condiments"],
+    "demandMultiplier": 1.4,
+    "note": "Fasting season — high demand for kuttu atta, sabudana, fruits, dairy, rock salt"
+  },
+  {
+    "id": "dussehra_2026",
+    "name": "Dussehra",
+    "region": "All India",
+    "startDate": "2026-10-11",
+    "endDate": "2026-10-11",
+    "impact": "MEDIUM",
+    "categories": ["Confectionery", "Biscuits & Snacks"],
+    "demandMultiplier": 1.3,
+    "note": "Sweet distribution and celebrations — confectionery and dry snacks surge"
+  },
+  {
+    "id": "diwali_2026",
+    "name": "Diwali",
+    "region": "All India",
+    "startDate": "2026-10-20",
+    "endDate": "2026-10-22",
+    "impact": "VERY HIGH",
+    "categories": ["Biscuits & Snacks", "Confectionery", "Oils & Ghee", "Personal Care"],
+    "demandMultiplier": 1.8,
+    "note": "Gift hamper season — dry fruits, sweets, ghee, personal care gift sets"
+  },
+  {
+    "id": "dhanteras_2026",
+    "name": "Dhanteras",
+    "region": "North India",
+    "startDate": "2026-10-18",
+    "endDate": "2026-10-18",
+    "impact": "HIGH",
+    "categories": ["Household", "Personal Care"],
+    "demandMultiplier": 1.5,
+    "note": "Auspicious buying day — new household goods, utensils, personal care"
+  },
+  {
+    "id": "holi_2026",
+    "name": "Holi",
+    "region": "North India",
+    "startDate": "2027-03-02",
+    "endDate": "2027-03-03",
+    "impact": "HIGH",
+    "categories": ["Dairy & Beverages", "Biscuits & Snacks", "Confectionery"],
+    "demandMultiplier": 1.5,
+    "note": "Thandai, sweets, bhujia surge; soft drinks and dairy rise sharply"
+  },
+  {
+    "id": "pongal_2027",
+    "name": "Pongal / Makar Sankranti",
+    "region": "South India / All India",
+    "startDate": "2027-01-14",
+    "endDate": "2027-01-17",
+    "impact": "HIGH",
+    "categories": ["Grains & Staples", "Dairy & Beverages", "Confectionery"],
+    "demandMultiplier": 1.4,
+    "note": "Rice, jaggery, milk, sugarcane demand spikes; South India particularly strong"
+  },
+  {
+    "id": "eid_2027",
+    "name": "Eid ul-Fitr",
+    "region": "All India",
+    "startDate": "2027-03-20",
+    "endDate": "2027-03-21",
+    "impact": "HIGH",
+    "categories": ["Grains & Staples", "Oils & Ghee", "Spices & Condiments", "Dairy & Beverages"],
+    "demandMultiplier": 1.6,
+    "note": "Ramzan shopping peaks week before Eid — rice, oil, sugar, vermicelli spike"
+  },
+  {
+    "id": "school_reopening_2026_june",
+    "name": "School Reopening",
+    "region": "All India",
+    "startDate": "2026-06-01",
+    "endDate": "2026-06-30",
+    "impact": "MEDIUM",
+    "categories": ["Noodles & Pasta", "Biscuits & Snacks", "Dairy & Beverages"],
+    "demandMultiplier": 1.3,
+    "note": "Tiffin box season — biscuits, juice, noodles, bread rise for packed lunches"
+  },
+  {
+    "id": "onam_2026",
+    "name": "Onam",
+    "region": "Kerala / South India",
+    "startDate": "2026-09-01",
+    "endDate": "2026-09-10",
+    "impact": "HIGH",
+    "categories": ["Grains & Staples", "Oils & Ghee", "Spices & Condiments"],
+    "demandMultiplier": 1.5,
+    "note": "Sadhya feast preparations — rice, coconut oil, spices, papads surge"
+  },
+  {
+    "id": "wedding_season_2026_nov",
+    "name": "Wedding Season",
+    "region": "North India",
+    "startDate": "2026-11-10",
+    "endDate": "2026-12-15",
+    "impact": "MEDIUM",
+    "categories": ["Oils & Ghee", "Grains & Staples", "Spices & Condiments", "Dairy & Beverages"],
+    "demandMultiplier": 1.35,
+    "note": "North Indian wedding season — bulk purchase of ghee, rice, oil, masalas"
+  }
+]

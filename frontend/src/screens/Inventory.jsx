@@ -1,0 +1,156 @@
+/**
+ * Screen 2: Inventory Intelligence
+ * Product table with status chips, days-to-stockout, perishable expiry countdown
+ */
+import { useEffect, useState } from 'react';
+import { getInventory } from '../api/client';
+
+const TIER_CONFIG = {
+  FAST: { label: 'Fast', chipClass: 'chip-green', emoji: '⚡' },
+  MEDIUM: { label: 'Medium', chipClass: 'chip-blue', emoji: '📊' },
+  SLOW: { label: 'Slow', chipClass: 'chip-amber', emoji: '🐢' },
+  DEAD: { label: 'Dead', chipClass: 'chip-red', emoji: '☠️' },
+  UNKNOWN: { label: '—', chipClass: 'chip-neutral', emoji: '' },
+};
+
+function DaysChip({ days }) {
+  if (days >= 999) return <span className="chip chip-neutral">90+ days</span>;
+  if (days < 3) return <span className="chip chip-red">🔴 {days}d</span>;
+  if (days < 7) return <span className="chip chip-amber">🟡 {days}d</span>;
+  if (days < 30) return <span className="chip chip-green">🟢 {days}d</span>;
+  return <span className="chip chip-neutral">{days}d</span>;
+}
+
+export default function Inventory() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState('ALL');
+  const [search, setSearch] = useState('');
+  const [sortBy, setSortBy] = useState('daysToStockout');
+
+  useEffect(() => {
+    getInventory().then(data => {
+      setItems(data.items || []);
+      setLoading(false);
+    }).catch(() => setLoading(false));
+  }, []);
+
+  const filtered = items
+    .filter(i => filter === 'ALL' || i.velocityTier === filter)
+    .filter(i => !search || i.product?.name?.toLowerCase().includes(search.toLowerCase()))
+    .sort((a, b) => {
+      if (sortBy === 'daysToStockout') return a.daysToStockout - b.daysToStockout;
+      if (sortBy === 'capital') return b.capitalLocked - a.capitalLocked;
+      if (sortBy === 'name') return (a.product?.name || '').localeCompare(b.product?.name || '');
+      return 0;
+    });
+
+  const tierCounts = items.reduce((acc, i) => {
+    acc[i.velocityTier] = (acc[i.velocityTier] || 0) + 1;
+    return acc;
+  }, {});
+
+  return (
+    <div className="screen" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+      <div>
+        <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 700, marginBottom: 4 }}>
+          Inventory Intelligence
+        </h1>
+        <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>
+          {items.length} SKUs tracked
+        </p>
+      </div>
+
+      {/* Filter pills */}
+      <div style={{ display: 'flex', gap: 'var(--space-sm)', overflowX: 'auto', paddingBottom: 4, scrollbarWidth: 'none' }}>
+        {[['ALL', 'All'], ['FAST', '⚡ Fast'], ['MEDIUM', '📊 Medium'], ['SLOW', '🐢 Slow'], ['DEAD', '☠️ Dead']].map(([key, label]) => (
+          <button key={key} className={`chip ${filter === key ? 'chip-brand' : 'chip-neutral'}`}
+            style={{ cursor: 'pointer', border: 'none', whiteSpace: 'nowrap' }}
+            onClick={() => setFilter(key)}>
+            {label} {key !== 'ALL' && tierCounts[key] ? `(${tierCounts[key]})` : ''}
+          </button>
+        ))}
+      </div>
+
+      {/* Search */}
+      <input
+        type="text"
+        placeholder="Search products..."
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        style={{
+          background: 'var(--bg-card)', border: '1px solid var(--border-default)',
+          borderRadius: 'var(--radius-md)', padding: '10px 14px',
+          color: 'var(--text-primary)', fontSize: '0.9375rem', outline: 'none', width: '100%'
+        }}
+      />
+
+      {/* Sort */}
+      <div style={{ display: 'flex', gap: 'var(--space-sm)', alignItems: 'center' }}>
+        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Sort:</span>
+        {[['daysToStockout', 'Days left'], ['capital', 'Capital'], ['name', 'Name']].map(([key, label]) => (
+          <button key={key} className={`chip ${sortBy === key ? 'chip-brand' : 'chip-neutral'}`}
+            style={{ cursor: 'pointer', border: 'none' }}
+            onClick={() => setSortBy(key)}>
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* Inventory list */}
+      {loading ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {[...Array(8)].map((_, i) => <div key={i} className="skeleton" style={{ height: 72 }} />)}
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
+          {filtered.map(item => {
+            const p = item.product;
+            const tier = TIER_CONFIG[item.velocityTier] || TIER_CONFIG.UNKNOWN;
+            const capitalLocked = item.capitalLocked || (item.quantity * (p?.purchasePrice || 0));
+
+            return (
+              <div key={item.productId} className="card" style={{ padding: '12px 14px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, marginBottom: 8 }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontWeight: 600, fontSize: '0.9375rem', marginBottom: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {tier.emoji} {p?.name || item.productId}
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{p?.brand} · {p?.category}</div>
+                  </div>
+                  <DaysChip days={item.daysToStockout} />
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
+                  <div>
+                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginBottom: 2 }}>QTY</div>
+                    <div style={{ fontWeight: 600, fontSize: '0.875rem' }}>{item.quantity} {p?.unit}</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginBottom: 2 }}>DAILY SALES</div>
+                    <div style={{ fontWeight: 600, fontSize: '0.875rem' }}>{item.avgDailySales}</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginBottom: 2 }}>LOCKED</div>
+                    <div style={{ fontWeight: 600, fontSize: '0.875rem' }}>
+                      ₹{capitalLocked >= 1000 ? `${(capitalLocked / 1000).toFixed(1)}k` : capitalLocked}
+                    </div>
+                  </div>
+                </div>
+                {p?.perishable && item.batchExpiryDate && (
+                  <div className="alert-banner warning" style={{ marginTop: 8, padding: '6px 10px', fontSize: '0.75rem' }}>
+                    ⏰ Expires: {new Date(item.batchExpiryDate).toLocaleDateString('en-IN')}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+          {filtered.length === 0 && (
+            <div style={{ textAlign: 'center', padding: 'var(--space-2xl)', color: 'var(--text-muted)' }}>
+              No products match this filter.
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
