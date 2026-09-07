@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/ishanvaidya01/Self2Cash/main/assets/banner.png" alt="Shelf2Cash Banner" width="100%" />
   <h1> Shelf2Cash</h1>
   <p><strong>A Physical-to-Financial Intelligence Platform for India's Small Retailers (Kiranas)</strong></p>
-  <p><em>Built for the iQOO Hackathon 2026 — FinTech & Commerce Track</em></p>
+  <p><em></em></p>
 
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   [![React](https://img.shields.io/badge/React-19-blue.svg)](https://reactjs.org/)
