@@ -3,7 +3,7 @@
  * Product table with status chips, days-to-stockout, perishable expiry countdown
  */
 import { useEffect, useState } from 'react';
-import { getInventory } from '../api/client';
+import { getInventory, getProducts, updateInventory } from '../api/client';
 
 const TIER_CONFIG = {
   FAST: { label: 'Fast', chipClass: 'chip-green', emoji: '⚡' },
@@ -28,6 +28,13 @@ export default function Inventory() {
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('daysToStockout');
 
+  // Modal State
+  const [showModal, setShowModal] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [selectedProductId, setSelectedProductId] = useState('');
+  const [addQuantity, setAddQuantity] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   useEffect(() => {
     getInventory().then(data => {
       setItems(data.items || []);
@@ -50,15 +57,57 @@ export default function Inventory() {
     return acc;
   }, {});
 
+  const handleOpenModal = () => {
+    setShowModal(true);
+    if (products.length === 0) {
+      getProducts().then(data => setProducts(data.products || []));
+    }
+  };
+
+  const handleAddInventory = async (e) => {
+    e.preventDefault();
+    if (!selectedProductId || !addQuantity) return;
+    
+    setIsSubmitting(true);
+    
+    // Find existing inventory item to get current quantity
+    const existingItem = items.find(i => i.productId === selectedProductId);
+    const currentQty = existingItem ? existingItem.quantity : 0;
+    const newQty = currentQty + parseInt(addQuantity, 10);
+    
+    try {
+      await updateInventory({ productId: selectedProductId, quantity: newQty });
+      // Refresh inventory
+      const data = await getInventory();
+      setItems(data.items || []);
+      setShowModal(false);
+      setSelectedProductId('');
+      setAddQuantity('');
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="screen" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
-      <div>
-        <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 700, marginBottom: 4 }}>
-          Inventory Intelligence
-        </h1>
-        <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>
-          {items.length} SKUs tracked
-        </p>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div>
+          <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 700, marginBottom: 4 }}>
+            Inventory Intelligence
+          </h1>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>
+            {items.length} SKUs tracked
+          </p>
+        </div>
+        <button 
+          onClick={handleOpenModal}
+          className="btn btn-primary"
+          style={{ padding: '8px 12px', fontSize: '0.875rem', borderRadius: 'var(--radius-md)', background: 'var(--brand-primary)', color: 'white', border: 'none', cursor: 'pointer', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 6 }}
+        >
+          <span>➕</span> Add
+        </button>
       </div>
 
       {/* Filter pills */}
@@ -149,6 +198,74 @@ export default function Inventory() {
               No products match this filter.
             </div>
           )}
+        </div>
+      )}
+
+      {/* Modal */}
+      {showModal && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
+          alignItems: 'center', justifyContent: 'center', zIndex: 1000
+        }}>
+          <div className="card" style={{ width: '90%', maxWidth: 400, padding: 'var(--space-md)' }}>
+            <h2 style={{ marginBottom: 'var(--space-sm)' }}>Add Material</h2>
+            <form onSubmit={handleAddInventory} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: 4, fontWeight: 500 }}>Select Product</label>
+                <select 
+                  value={selectedProductId}
+                  onChange={e => setSelectedProductId(e.target.value)}
+                  style={{
+                    width: '100%', padding: '10px', borderRadius: 'var(--radius-md)',
+                    border: '1px solid var(--border-default)', background: 'var(--bg-input, var(--bg-card))',
+                    color: 'var(--text-primary)', outline: 'none', fontSize: '0.9375rem'
+                  }}
+                  required
+                >
+                  <option value="" disabled>Select a product...</option>
+                  {products.map(p => (
+                    <option key={p.productId} value={p.productId}>{p.name}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div>
+                <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: 4, fontWeight: 500 }}>Quantity to Add</label>
+                <input 
+                  type="number" 
+                  value={addQuantity}
+                  onChange={e => setAddQuantity(e.target.value)}
+                  placeholder="e.g., 50"
+                  style={{
+                    width: '100%', padding: '10px', borderRadius: 'var(--radius-md)',
+                    border: '1px solid var(--border-default)', background: 'var(--bg-input, var(--bg-card))',
+                    color: 'var(--text-primary)', outline: 'none', fontSize: '0.9375rem'
+                  }}
+                  required
+                  min="1"
+                />
+              </div>
+
+              <div style={{ display: 'flex', gap: 'var(--space-sm)', marginTop: 'var(--space-sm)' }}>
+                <button 
+                  type="button" 
+                  onClick={() => setShowModal(false)}
+                  style={{ flex: 1, padding: '10px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-default)', background: 'transparent', color: 'var(--text-primary)', cursor: 'pointer', fontWeight: 500 }}
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="btn btn-primary"
+                  style={{ flex: 1, padding: '10px', borderRadius: 'var(--radius-md)', border: 'none', background: 'var(--brand-primary)', color: 'white', cursor: isSubmitting ? 'not-allowed' : 'pointer', fontWeight: 600, opacity: isSubmitting ? 0.7 : 1 }}
+                >
+                  {isSubmitting ? 'Saving...' : 'Add Balance'}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
     </div>

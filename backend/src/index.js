@@ -73,9 +73,9 @@ async function start() {
     console.log('✅ MongoDB connected:', process.env.MONGODB_URI);
 
     // Run initial jobs on startup
-    setTimeout(() => mandiPoller.poll(), 2000);
-    setTimeout(() => meshScanner.scan(), 5000);
-    setTimeout(() => alertGenerator.generate(), 8000);
+    mandiPoller.poll();
+    meshScanner.scan();
+    alertGenerator.generate();
 
     const PORT = process.env.PORT || 5000;
     server.listen(PORT, () => {

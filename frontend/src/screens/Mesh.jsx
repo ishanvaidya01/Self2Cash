@@ -112,8 +112,8 @@ export default function Mesh() {
             const icon = L.divIcon({
               className: '',
               html: `<div style="
-                background: ${m.isSelf ? '#7C6FFF' : 'var(--bg-card)'};
-                border: 2px solid ${m.isSelf ? '#7C6FFF' : '#444'};
+                background: ${m.isSelf ? 'var(--brand-primary)' : 'var(--bg-card)'};
+                border: 2px solid ${m.isSelf ? 'var(--brand-primary)' : 'var(--border-strong)'};
                 border-radius: 50%;
                 width: 28px; height: 28px;
                 display: flex; align-items: center; justify-content: center;
@@ -130,7 +130,7 @@ export default function Mesh() {
           })}
 
           {/* Mesh radius circle around primary store */}
-          <Circle center={DEMO_CENTER} radius={2000} pathOptions={{ color: '#7C6FFF', fillOpacity: 0.04, weight: 1, dashArray: '6 4' }} />
+          <Circle center={DEMO_CENTER} radius={2000} pathOptions={{ color: 'var(--brand-primary)', fillOpacity: 0.04, weight: 1, dashArray: '6 4' }} />
         </MapContainer>
       </div>
 

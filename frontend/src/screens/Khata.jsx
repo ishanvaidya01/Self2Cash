@@ -26,11 +26,9 @@ export default function Khata() {
     // Open WhatsApp in a new tab
     window.open(url, '_blank', 'noopener,noreferrer');
     
-    // Mark as sent in UI after a brief delay
-    setTimeout(() => {
-      setSentResult(r => ({ ...r, [customer.customerId]: { success: true } }));
-      setSending(s => ({ ...s, [customer.customerId]: false }));
-    }, 1000);
+    // Mark as sent in UI immediately
+    setSentResult(r => ({ ...r, [customer.customerId]: { success: true } }));
+    setSending(s => ({ ...s, [customer.customerId]: false }));
   };
 
   const summary = data?.summary || {};
@@ -44,7 +42,7 @@ export default function Khata() {
       </div>
 
       {/* Summary */}
-      <div className="card" style={{ background: 'linear-gradient(135deg, #14151F, #1A1B2E)', border: '1px solid rgba(124, 111, 255, 0.15)' }}>
+      <div className="card" style={{ background: 'var(--bg-card)' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-md)' }}>
           <div>
             <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Due</p>

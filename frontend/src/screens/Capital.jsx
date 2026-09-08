@@ -49,7 +49,7 @@ export default function Capital() {
       </div>
 
       {/* Total capital card */}
-      <div className="card" style={{ background: 'linear-gradient(135deg, #14151F, #1A1B2E)', border: '1px solid rgba(124, 111, 255, 0.15)' }}>
+      <div className="card" style={{ background: 'var(--bg-card)' }}>
         <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
           Total Capital Deployed
         </p>

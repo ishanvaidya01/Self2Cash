@@ -108,7 +108,7 @@ export default function Factoring() {
 
       {q && quote?.eligible !== false && (
         <div className="card" style={{
-          background: 'linear-gradient(135deg, #14151F, #1A1B2E)',
+          background: 'var(--bg-card)',
           border: '1px solid rgba(0, 229, 195, 0.2)',
           boxShadow: '0 0 30px rgba(0, 229, 195, 0.1)'
         }}>

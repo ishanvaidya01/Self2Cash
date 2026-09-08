@@ -57,10 +57,12 @@ export const useAppStore = create((set, get) => ({
 
     ws.onclose = () => {
       set({ wsConnected: false });
-      // Reconnect after 3s
-      setTimeout(() => get().initWebSocket(), 3000);
+      // Reconnect after 5s
+      setTimeout(() => get().initWebSocket(), 5000);
     };
 
-    ws.onerror = (err) => console.error('[WS] Error:', err);
+    ws.onerror = () => {
+      // Suppress raw event to avoid console spam when backend is down
+    };
   }
 }));

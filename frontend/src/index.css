@@ -3,47 +3,47 @@
 /* ─── Design Tokens ─────────────────────────────────────────────────────────── */
 :root {
   /* Background palette */
-  --bg-primary: #09090D;
-  --bg-secondary: #0F1016;
-  --bg-card: #14151F;
-  --bg-card-hover: #1A1B28;
-  --bg-elevated: #1E2030;
-  --bg-glass: rgba(255, 255, 255, 0.03);
+  --bg-primary: #F8FAFC;
+  --bg-secondary: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F1F5F9;
+  --bg-elevated: #E2E8F0;
+  --bg-glass: rgba(255, 255, 255, 0.7);
 
   /* Brand colors */
-  --brand-primary: #7C6FFF;
-  --brand-primary-light: rgba(124, 111, 255, 0.15);
-  --brand-accent: #00E5C3;
-  --brand-accent-light: rgba(0, 229, 195, 0.12);
+  --brand-primary: #2563EB;
+  --brand-primary-light: rgba(37, 99, 235, 0.1);
+  --brand-accent: #0284C7;
+  --brand-accent-light: rgba(2, 132, 199, 0.1);
 
   /* Signal colors */
-  --signal-green: #00E5A0;
-  --signal-green-light: rgba(0, 229, 160, 0.12);
-  --signal-amber: #FFB547;
-  --signal-amber-light: rgba(255, 181, 71, 0.12);
-  --signal-red: #FF5A6A;
-  --signal-red-light: rgba(255, 90, 106, 0.12);
-  --signal-blue: #4DA6FF;
-  --signal-blue-light: rgba(77, 166, 255, 0.12);
+  --signal-green: #10B981;
+  --signal-green-light: rgba(16, 185, 129, 0.1);
+  --signal-amber: #F59E0B;
+  --signal-amber-light: rgba(245, 158, 11, 0.1);
+  --signal-red: #EF4444;
+  --signal-red-light: rgba(239, 68, 68, 0.1);
+  --signal-blue: #3B82F6;
+  --signal-blue-light: rgba(59, 130, 246, 0.1);
 
   /* Text */
-  --text-primary: #F0F0FF;
-  --text-secondary: #9596B0;
-  --text-muted: #5C5D74;
-  --text-disabled: #3A3B50;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --text-disabled: #94A3B8;
 
   /* Borders */
-  --border-subtle: rgba(255, 255, 255, 0.05);
-  --border-default: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.15);
+  --border-subtle: #E2E8F0;
+  --border-default: #CBD5E1;
+  --border-strong: #94A3B8;
 
   /* Shadows */
-  --shadow-card: 0 2px 20px rgba(0, 0, 0, 0.4);
-  --shadow-elevated: 0 8px 40px rgba(0, 0, 0, 0.6);
-  --shadow-glow-green: 0 0 20px rgba(0, 229, 160, 0.2);
-  --shadow-glow-amber: 0 0 20px rgba(255, 181, 71, 0.2);
-  --shadow-glow-red: 0 0 20px rgba(255, 90, 106, 0.2);
-  --shadow-glow-brand: 0 0 30px rgba(124, 111, 255, 0.25);
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-elevated: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-glow-green: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-glow-amber: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-glow-red: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-glow-brand: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
 
   /* Spacing */
   --space-xs: 4px;
@@ -199,7 +199,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 700; lin
 .chip-red { background: var(--signal-red-light); color: var(--signal-red); }
 .chip-blue { background: var(--signal-blue-light); color: var(--signal-blue); }
 .chip-brand { background: var(--brand-primary-light); color: var(--brand-primary); }
-.chip-neutral { background: rgba(255,255,255,0.06); color: var(--text-secondary); }
+.chip-neutral { background: var(--bg-elevated); color: var(--text-secondary); }
 
 /* ─── Buttons ────────────────────────────────────────────────────────────────── */
 .btn {
@@ -274,7 +274,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 700; lin
   width: 100%;
   max-width: 480px;
   height: var(--nav-height);
-  background: rgba(15, 16, 22, 0.95);
+  background: rgba(255, 255, 255, 0.95);
   border-top: 1px solid var(--border-subtle);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -409,12 +409,12 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 700; lin
   border-radius: 50%;
   background: var(--brand-primary);
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(124, 111, 255, 0.5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 .styled-slider::-webkit-slider-thumb:active {
   transform: scale(1.2);
-  box-shadow: 0 0 18px rgba(124, 111, 255, 0.7);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* ─── Loading States ─────────────────────────────────────────────────────────── */

@@ -26,8 +26,8 @@ export default function Camera() {
       if (items.length > 0) setSelectedProduct(items[0]);
     });
 
-    // Simulate model loading
-    setTimeout(() => setModelLoaded(true), 1500);
+    // Set model loaded instantly without delay
+    setModelLoaded(true);
   }, []);
 
   const startCamera = async () => {

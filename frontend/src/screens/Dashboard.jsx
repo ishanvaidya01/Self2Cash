@@ -14,11 +14,10 @@ import { getBusinessHealth, getAlerts, getExternalSignals } from '../api/client'
 function ScoreRing({ score, color }) {
   const radius = 52;
   const circumference = 2 * Math.PI * radius;
-  const [displayed, setDisplayed] = useState(0);
+  const [displayed, setDisplayed] = useState(score);
 
   useEffect(() => {
-    const timer = setTimeout(() => setDisplayed(score), 300);
-    return () => clearTimeout(timer);
+    setDisplayed(score);
   }, [score]);
 
   const offset = circumference - (displayed / 100) * circumference;
@@ -98,8 +97,7 @@ export default function Dashboard() {
 
       {/* Health Score Card */}
       <div className="card" style={{
-        background: 'linear-gradient(135deg, #14151F 0%, #1A1B2E 100%)',
-        border: '1px solid rgba(124, 111, 255, 0.15)',
+        background: 'var(--bg-card)',
         display: 'flex',
         flexDirection: 'column',
         gap: 'var(--space-md)'

@@ -27,8 +27,15 @@ export const getBusinessHealth = (mid = DEFAULT_MERCHANT) =>
 export const getInventory = (mid = DEFAULT_MERCHANT) =>
   api.get('/inventory', { params: { merchantId: mid } }).then(r => r.data);
 
+export const updateInventory = (data) =>
+  api.post('/inventory', { merchantId: DEFAULT_MERCHANT, ...data }).then(r => r.data);
+
 export const getInventoryHealth = (mid = DEFAULT_MERCHANT) =>
   api.get('/inventory/health', { params: { merchantId: mid } }).then(r => r.data);
+
+// ── Products ─────────────────────────────────────────────────────────────────
+export const getProducts = (mid = DEFAULT_MERCHANT) =>
+  api.get('/products', { params: { merchantId: mid } }).then(r => r.data);
 
 // ── Sales ────────────────────────────────────────────────────────────────────
 export const getSales = (days = 30, mid = DEFAULT_MERCHANT) =>
