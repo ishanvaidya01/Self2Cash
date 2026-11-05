@@ -1,14 +1,13 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/ishanvaidya01/Self2Cash/main/assets/banner.png" alt="Shelf2Cash Banner" width="100%" />
-  <h1> Shelf2Cash</h1>
+  <h1>Shelf2Cash</h1>
   <p><strong>A Physical-to-Financial Intelligence Platform for India's Small Retailers (Kiranas)</strong></p>
-  <p><em></em></p>
 
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
   [![React](https://img.shields.io/badge/React-19-blue.svg)](https://reactjs.org/)
   [![Node.js](https://img.shields.io/badge/Node.js-24-green.svg)](https://nodejs.org/)
   [![FastAPI](https://img.shields.io/badge/FastAPI-0.110-009688.svg)](https://fastapi.tiangolo.com/)
   [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248.svg)](https://mongodb.com/)
+  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 </div>
 
 <br />
