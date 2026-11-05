@@ -4,8 +4,8 @@
   "description": "Shelf2Cash Financial Intelligence Engine - Backend",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
+    "start": "node init && node src/index.js",
+    "dev": "node init && nodemon src/index.js",
     "seed": "node src/seed/run.js",
     "test": "jest --runInBand"
   },
